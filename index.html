@@ -1,49 +1,130 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Osix Typing Tutor — Login</title>
-<link rel="stylesheet" href="style.css"></head>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Osix Typing Tutor – Login</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+        color: white;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .login-box {
+        width: 90%;
+        max-width: 380px;
+        background: rgba(255, 255, 255, 0.06);
+        padding: 30px;
+        border-radius: 16px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 26px;
+        font-weight: bold;
+    }
+
+    label {
+        font-size: 14px;
+        opacity: 0.9;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        margin-top: 5px;
+        margin-bottom: 18px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        background: rgba(255,255,255,0.12);
+        color: white;
+        font-size: 15px;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background: #6366f1;
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    button:hover { background: #4f46e5; }
+
+    .link {
+        text-align: center;
+        margin-top: 15px;
+        opacity: 0.8;
+        cursor: pointer;
+    }
+</style>
+
+</head>
 <body>
-  <div class="auth-wrap">
-    <div class="auth-card">
-      <!-- simple logo -->
-      <svg class="osix-logo" viewBox="0 0 100 100"><circle cx="50" cy="28" r="18" fill="#6ea8fe"/><rect x="26" y="56" rx="8" width="48" height="18" fill="#8b5cf6"/></svg>
-      <div class="big-title">Osix Typing Tutor</div>
 
-      <!-- LOGIN -->
-      <div id="loginForm" class="">
-        <input id="loginMobile" class="input" placeholder="Mobile number (+91...)" />
-        <input id="loginPass" class="input" placeholder="Password" type="password" />
-        <button id="loginBtn" class="btn primary">Login</button>
-        <div class="muted"><a id="forgotLink" class="link">Forgot Password?</a></div>
-        <p class="muted">New here? <a id="showSignup" class="link">Create New Account</a></p>
-      </div>
+<div class="login-box">
+    <h2>Osix Typing Tutor</h2>
 
-      <!-- SIGNUP hidden -->
-      <div id="signupForm" class="hidden">
-        <input id="suName" class="input" placeholder="Full name" />
-        <input id="suMobile" class="input" placeholder="Mobile number (+91...)" />
-        <input id="suEmail" class="input" placeholder="Email (optional)" type="email" />
-        <input id="suPass" class="input" placeholder="Password" type="password" />
-        <button id="signupBtn" class="btn primary">Create Account</button>
-        <p class="muted">Already registered? <a id="showLogin" class="link">Login</a></p>
-      </div>
+    <label>Your Name</label>
+    <input type="text" id="name" placeholder="Enter your name">
 
-      <!-- FORGOT -->
-      <div id="forgotForm" class="hidden">
-        <input id="fpMobile" class="input" placeholder="Enter registered mobile" />
-        <button id="fpSend" class="btn">Send OTP / Verify (demo)</button>
-        <div id="fpOtpWrap" class="hidden" style="margin-top:8px">
-          <input id="fpOtp" class="input" placeholder="Enter OTP (demo 1234)"/>
-          <input id="fpNewPass" class="input" placeholder="New password" type="password"/>
-          <button id="fpResetBtn" class="btn primary">Reset Password</button>
-        </div>
-        <p class="muted"><a id="fpBack" class="link">Back</a></p>
-      </div>
+    <label>Mobile Number</label>
+    <input type="number" id="mobile" placeholder="Enter mobile number">
 
+    <button onclick="sendOTP()">Get OTP</button>
+
+    <div id="otp-section" style="display:none;">
+        <label>Enter OTP</label>
+        <input type="number" id="otp" maxlength="4" placeholder="4-digit OTP">
+
+        <button onclick="verifyOTP()">Verify OTP</button>
     </div>
-  </div>
 
-<script src="script.js"></script>
-<script>initIndexPage();</script>
+    <div class="link">New here? Create New Account</div>
+</div>
+
+<script>
+function sendOTP() {
+    let name = document.getElementById("name").value;
+    let mobile = document.getElementById("mobile").value;
+
+    if(name.trim()=="" || mobile.trim()=="") {
+        alert("Please enter name and mobile number");
+        return;
+    }
+
+    alert("OTP sent to your mobile (Demo OTP: 1234)");
+    document.getElementById("otp-section").style.display = "block";
+}
+
+function verifyOTP() {
+    let otp = document.getElementById("otp").value;
+
+    if(otp == "1234") {
+        localStorage.setItem("student_name", document.getElementById("name").value);
+        window.location.href = "dashboard.html"; // next page
+    } else {
+        alert("Incorrect OTP");
+    }
+}
+</script>
+
 </body>
 </html>
