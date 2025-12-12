@@ -1,191 +1,182 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Osix Typing Tutor</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <div class="app">
-    <!-- Left Sidebar -->
-    <aside class="sidebar glass" id="sidebar">
-      <div class="brand">
-        <div class="logo">OSIX</div>
-        <div class="title">Osix Typing Tutor</div>
+  <div class="wrap">
+    <!-- CENTER LOGIN SCREEN -->
+    <main id="authArea" class="auth-area card glass">
+      <div class="logo-block">
+        <!-- inline SVG logo (simple modern) -->
+        <svg id="osixLogo" width="64" height="64" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="30" r="18" fill="#60a5fa"/>
+          <rect x="26" y="56" width="48" height="18" rx="9" fill="#7c3aed"/>
+        </svg>
       </div>
-      <nav class="menu">
-        <button data-page="home" class="menu-btn active">🏠 Home</button>
-        <button data-page="choose" class="menu-btn">📝 Choose Test</button>
-        <button data-page="allexams" class="menu-btn">📚 All Exams</button>
-        <button data-page="daily" class="menu-btn">⚡ Daily live test</button>
-        <button data-page="leader" class="menu-btn">🏆 Leader Board</button>
-        <button data-page="results" class="menu-btn">📊 My Result</button>
-        <button data-page="learn" class="menu-btn">🎯 Learn Typing</button>
-        <button data-page="refer" class="menu-btn">💸 Refer & Earn</button>
-      </nav>
-      <div class="sidebar-footer small">Offline • Data stored in browser</div>
-    </aside>
 
-    <!-- Main area -->
-    <main class="main">
-      <!-- Top bar -->
-      <header class="topbar glass">
-        <div class="page-title" id="pageTitle">Osix Typing Tutor — Login</div>
-        <div class="top-right">
-          <div id="profileWrap" class="profile-wrap" style="display:none;">
-            <img id="avatar" src="" alt="avatar" class="avatar" />
-            <div id="profileDropdown" class="profile-dropdown glass hidden">
-              <div class="pd-name" id="pdName"></div>
-              <div class="pd-row"><strong>Mobile:</strong> <span id="pdMobile"></span></div>
-              <div class="pd-row"><strong>Email:</strong> <span id="pdEmail"></span></div>
-              <div class="pd-row"><strong>User ID:</strong> <span id="pdId"></span></div>
-              <div class="pd-row"><strong>Joined:</strong> <span id="pdJoined"></span></div>
-              <button id="logoutBtn" class="btn danger">Logout</button>
-            </div>
-          </div>
+      <h1 class="big-title">Osix Typing Tutor</h1>
+
+      <!-- Login form -->
+      <div id="loginForm" class="form">
+        <input id="loginMobile" type="text" placeholder="Mobile number (+91...)" />
+        <input id="loginPass" type="password" placeholder="Password" />
+        <button id="loginBtn" class="btn primary">Login</button>
+        <a id="forgotLink" class="muted link">Forgot Password?</a>
+        <p class="muted">New here? <a id="showSignup" class="link">Create New Account</a></p>
+      </div>
+
+      <!-- Signup form (hidden initially) -->
+      <div id="signupForm" class="form hidden">
+        <input id="suName" type="text" placeholder="Full name" />
+        <input id="suMobile" type="text" placeholder="Mobile number (+91...)" />
+        <input id="suEmail" type="email" placeholder="Email (optional)" />
+        <input id="suPass" type="password" placeholder="Password" />
+        <button id="signupBtn" class="btn primary">Create Account</button>
+        <p class="muted">Already have account? <a id="showLogin" class="link">Login</a></p>
+      </div>
+
+      <!-- Forgot password form -->
+      <div id="forgotForm" class="form hidden">
+        <input id="fpMobile" placeholder="Enter your registered mobile" />
+        <button id="fpSend" class="btn">Send OTP / Verify</button>
+        <div id="fpOtpWrap" class="hidden">
+          <input id="fpOtp" placeholder="Enter OTP" />
+          <input id="fpNewPass" placeholder="New password" type="password"/>
+          <button id="fpResetBtn" class="btn primary">Reset Password</button>
         </div>
-      </header>
-
-      <!-- Pages container -->
-      <section class="content">
-
-        <!-- LOGIN / SIGNUP -->
-        <div id="page-login" class="page card center">
-          <h1 class="glass-title">Osix Typing Tutor</h1>
-          <h3 class="sub">Login</h3>
-
-          <input id="loginMobile" placeholder="Mobile number (+91...)" type="text" />
-          <input id="loginPass" placeholder="Password" type="password" />
-          <button id="loginBtn" class="btn primary">Login</button>
-
-          <p class="muted">New here? <a href="#" id="showSignup">Create account</a></p>
-
-          <hr/>
-          <p class="muted small">Demo accounts are stored locally on this device.</p>
-        </div>
-
-        <div id="page-signup" class="page card center hidden">
-          <h1 class="glass-title">Create Account</h1>
-
-          <input id="suName" placeholder="Full name" type="text" />
-          <input id="suMobile" placeholder="Mobile number (+91...)" type="text" />
-          <input id="suEmail" placeholder="Email (optional)" type="email" />
-          <input id="suPass" placeholder="Password" type="password" />
-          <button id="signupBtn" class="btn primary">Sign up</button>
-          <p class="muted">Already have account? <a href="#" id="showLogin">Login</a></p>
-        </div>
-
-        <!-- HOME -->
-        <div id="page-home" class="page card hidden">
-          <h2>Welcome to Osix Typing Tutor</h2>
-          <p class="muted">Choose a test, practice daily and track progress. Modern glass UI — local data only.</p>
-          <div class="home-grid">
-            <div class="home-card">
-              <h3>Quick test</h3>
-              <p>1-minute speed challenge</p>
-              <button class="btn" onclick="quickTest()">Start Quick</button>
-            </div>
-            <div class="home-card">
-              <h3>Daily live</h3>
-              <p>Take today’s live challenge</p>
-              <button class="btn" data-page-open="daily">Join</button>
-            </div>
-            <div class="home-card">
-              <h3>Top performers</h3>
-              <p>See leaderboard</p>
-              <button class="btn" data-page-open="leader">Open</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- CHOOSE TEST -->
-        <div id="page-choose" class="page card hidden">
-          <h2>Choose Test</h2>
-          <div class="controls-row">
-            <select id="selLang">
-              <option value="english">English</option>
-              <option value="hindi">हिन्दी</option>
-            </select>
-            <select id="selDiff">
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
-            </select>
-            <select id="selTime">
-              <option value="60">1 Minute</option>
-              <option value="300">5 Minutes</option>
-              <option value="600">10 Minutes</option>
-            </select>
-            <button id="startTestBtn" class="btn primary">Start Test</button>
-          </div>
-
-          <div id="passagePreview" class="passage card glass" aria-live="polite"></div>
-          <p class="muted small">Tip: Use headphones and practice daily.</p>
-        </div>
-
-        <!-- TEST -->
-        <div id="page-test" class="page card hidden">
-          <div class="test-top">
-            <div>Time left: <span id="timeLeft">60</span>s</div>
-            <div>WPM: <span id="liveWpm">0</span></div>
-            <div>Accuracy: <span id="liveAcc">0</span>%</div>
-            <div>CPM: <span id="liveCpm">0</span></div>
-          </div>
-
-          <div id="testPassage" class="passage test-passage"></div>
-          <textarea id="testInput" placeholder="Start typing..." oninput="onTyping()"></textarea>
-
-          <div class="test-actions">
-            <button id="finishTestBtn" class="btn">Finish</button>
-            <button id="pauseTestBtn" class="btn">Pause</button>
-            <button class="btn" onclick="abortToDashboard()">Cancel</button>
-          </div>
-        </div>
-
-        <!-- Leaderboard -->
-        <div id="page-leader" class="page card hidden">
-          <h2>Leader Board (Local)</h2>
-          <div id="leaderboardList" class="leaderboard"></div>
-        </div>
-
-        <!-- Results -->
-        <div id="page-results" class="page card hidden">
-          <h2>My Results</h2>
-          <div id="myResultsList"></div>
-        </div>
-
-        <!-- Learn Typing -->
-        <div id="page-learn" class="page card hidden">
-          <h2>Learn Typing</h2>
-          <p class="muted">Short lessons and finger drills will appear here. (Placeholder)</p>
-        </div>
-
-        <!-- Refer -->
-        <div id="page-refer" class="page card hidden">
-          <h2>Refer & Earn</h2>
-          <p class="muted">Share this site and earn points (local demo).</p>
-          <div class="muted small">Share this link: <code id="shareLink"></code></div>
-        </div>
-
-        <!-- All Exams -->
-        <div id="page-allexams" class="page card hidden">
-          <h2>All Exams</h2>
-          <p class="muted">Exam categories: SSC, Bank PO, RRB, Police, TGT etc. (sample)</p>
-          <ul class="muted">
-            <li>SSC CGL</li>
-            <li>Bank PO</li>
-            <li>RRB NTPC</li>
-            <li>Delhi Police</li>
-            <li>TGT / PGT</li>
-          </ul>
-        </div>
-
-      </section>
+        <p class="muted"><a id="fpBack" class="link">Back</a></p>
+      </div>
     </main>
+
+    <!-- DASHBOARD (hidden until login) -->
+    <div id="appArea" class="app-area hidden">
+      <aside class="sidebar glass">
+        <div class="side-top">
+          <div id="sideAvatarWrap" class="side-avatar"><img id="sideAvatar" src="" alt="avatar"/></div>
+          <div id="sideName" class="side-name">Student</div>
+        </div>
+        <nav class="side-menu">
+          <button data-page="home" class="side-btn active">Home</button>
+          <button data-page="learn" class="side-btn">Learning Typing</button>
+          <button data-page="choose" class="side-btn">Choose Test</button>
+          <button data-page="daily" class="side-btn">Daily live typing</button>
+          <button data-page="leader" class="side-btn">Live Leader Board</button>
+          <button data-page="results" class="side-btn">My results</button>
+          <button data-page="logout" class="side-btn">Logout</button>
+        </nav>
+        <div class="side-bottom">
+          <div class="mini-logo"><svg width="36" height="36" viewBox="0 0 100 100"><circle cx="50" cy="30" r="12" fill="#60a5fa"/></svg></div>
+          <div class="tag">Made in India</div>
+        </div>
+      </aside>
+
+      <main class="main-col">
+        <header class="topbar glass">
+          <div class="lefttop">
+            <div id="topAvatarWrap" class="top-avatar"><img id="topAvatar" src="" alt="avatar"/></div>
+            <div id="topUserName" class="top-username">Student Name</div>
+          </div>
+          <div class="righttop">
+            <img src="" id="brandLogoSmall" alt="OSIX" class="brand-small"/>
+          </div>
+        </header>
+
+        <section id="pageHome" class="page card">
+          <h2>Search Typing Exams</h2>
+          <input id="searchExam" placeholder="Search typing exams..." />
+          <div class="exam-chips">
+            <button class="chip">CGL</button>
+            <button class="chip">CHSL</button>
+            <button class="chip">DELHI POLICE HCM</button>
+            <button class="chip">UPSSSC</button>
+          </div>
+
+          <h3>Available Tests</h3>
+          <div id="testsList" class="tests-list"></div>
+
+          <div class="promo">
+            <div class="promo-left">
+              <h4>Free speed booster course</h4>
+              <p>Based on previous year patterns</p>
+            </div>
+            <div class="promo-right">
+              <p>Buy 10 tests — just ₹99</p>
+              <button class="btn">Buy</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Choose Test page -->
+        <section id="pageChoose" class="page card hidden">
+          <h2>Choose Test</h2>
+          <div class="choose-grid">
+            <div class="choose-left">
+              <label>Difficulty</label>
+              <select id="chooseDiff"><option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option></select>
+              <label>Time (seconds)</label>
+              <input id="chooseTime" type="number" value="60" min="10" max="600"/>
+              <label>Language</label>
+              <select id="chooseLang"><option value="english">English</option><option value="hindi">हिन्दी (Mangal)</option></select>
+              <button id="startChosen" class="btn primary">Start Test</button>
+            </div>
+            <div class="choose-right">
+              <h4>Test Settings</h4>
+              <label><input id="optHighlight" type="checkbox" checked/> Highlight words</label>
+              <label><input id="optScroll" type="checkbox" checked/> Auto scroll</label>
+              <label><input id="optBack" type="checkbox" checked/> Allow backspace</label>
+              <label><input id="optFullscreen" type="checkbox"/> Full screen</label>
+              <label>Font size <input id="optFont" type="range" min="11" max="100" value="17"/></label>
+              <label><input id="optAutoTimer" type="checkbox" /> Auto timer</label>
+            </div>
+          </div>
+        </section>
+
+        <!-- Profile modal/page -->
+        <section id="pageProfile" class="page card hidden">
+          <h2>My Profile</h2>
+          <div class="profile-grid">
+            <div class="pf-left">
+              <img id="profileBig" src="" alt="profile" class="profile-big"/>
+              <button id="choosePicBtn" class="btn">Choose Profile Picture</button>
+              <input id="filePic" type="file" accept="image/*" class="hidden"/>
+            </div>
+            <div class="pf-right">
+              <label>Name</label><input id="pfName"/>
+              <label>Mobile</label><input id="pfMobile" />
+              <label>Email</label><input id="pfEmail" />
+              <label>District</label><input id="pfDistrict" />
+              <label>State</label><input id="pfState" />
+              <div class="pf-actions">
+                <button id="editDetails" class="btn">Edit Details</button>
+                <button id="saveDetails" class="btn primary">Save</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Test Runner (simple) -->
+        <section id="pageTest" class="page card hidden">
+          <div class="test-top">
+            <div>Time: <span id="tLeft">60</span>s</div>
+            <div>WPM: <span id="tWpm">0</span></div>
+            <div>Acc: <span id="tAcc">0</span>%</div>
+          </div>
+          <div id="testPass" class="passage"></div>
+          <textarea id="testInput" placeholder="Start typing..." oninput="onTyping()"></textarea>
+          <div class="test-actions">
+            <button onclick="finishTest()" class="btn primary">Finish</button>
+            <button onclick="cancelTest()" class="btn">Cancel</button>
+          </div>
+        </section>
+
+      </main>
+    </div>
   </div>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
-    </html>
-    
+</html>
